@@ -9,6 +9,14 @@
     "repositoryUrl": "https://github.com/kinggeorges12/JellyBridge",
     "versions": [
       {
+        "version": "2.4.1.11",
+        "changelog": "v2.4.1 - Fix compatibility with Jellyfin 10.11.5+ (10.11.9 tested): IUserManager.GetUsers(), HttpClient scope fix, IServiceScopeFactory in scheduled tasks",
+        "targetAbi": "10.11.0.0",
+        "sourceUrl": "https://github.com/nemesbak/JellyBridge/releases/download/v2.4.1/JellyBridge-2.4.1.11.zip",
+        "checksum": "",
+        "timestamp": "2026-05-24T14:51:47.000Z"
+      },
+      {
         "version": "2.4.0.11",
         "targetAbi": "10.11.0.0",
         "checksum": "218FB6243A940F8A95E642A3E2B42D2A",
