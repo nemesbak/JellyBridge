@@ -1,5 +1,27 @@
 # JellyBridge Plugin
 
+> **⚠️ Fork notice — read before installing**
+>
+> This is a community fork of [kinggeorges12/JellyBridge](https://github.com/kinggeorges12/JellyBridge) maintained by [@nemesbak](https://github.com/nemesbak).  
+> It exists solely to provide compatibility with **Jellyfin 10.11.5 and later** (including 10.11.9) while the fixes are pending merge in the original repo ([PR #31](https://github.com/kinggeorges12/JellyBridge/pull/31)).  
+> Once the original author merges the PR and publishes a new release, go back to using the official manifest.
+>
+> ### ❓ Which manifest should I use?
+>
+> | Jellyfin version | Manifest to use |
+> |---|---|
+> | **10.11.5 – 10.11.9** | `https://raw.githubusercontent.com/nemesbak/JellyBridge/main/manifest.json` ← **this fork** |
+> | **10.10.x – 10.11.4** | `https://raw.githubusercontent.com/kinggeorges12/JellyBridge/refs/heads/main/manifest.json` ← official |
+>
+> ### 🔧 What was fixed in this fork (v2.4.1)?
+>
+> Three breaking changes introduced between Jellyfin 10.11.4 and 10.11.9:
+>
+> 1. **`IUserManager.Users` removed** → replaced by `GetUsers()` method.  
+>    Was causing `MissingMethodException` at runtime, silently skipping all user requests.
+> 2. **`ApiService` registered twice** → duplicate `AddScoped<>()` overrode the `AddHttpClient<>()` registration, causing `ObjectDisposedException` on the HTTP client mid-sync.
+> 3. **Scheduled tasks holding expired DI scopes** → `SyncTask`, `SortTask` and `StartupTask` now use `IServiceScopeFactory` and create a fresh scope per execution, fixing `ObjectDisposedException` from `MemoryCache`.
+
 A Jellyfin plugin that bridges Jellyfin with Jellyseerr (and Seerr\*) for seamless movie and series discovery and download requests.
 
 \* [Seerr v3.0.0 has recently released](https://docs.seerr.dev/blog/seerr-release) as the next iteration of Jellyseerr v2.7.3. The API appears to be unchanged, and my tests have not found any compatibility problems. Enjoy the new release! Please submit any issues with Seerr to this project, and I will try to expedite a fix. As for our documentation, I will wait until the next major update to switch to the new name.
